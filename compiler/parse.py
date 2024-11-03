@@ -39,10 +39,18 @@ def parameter(p):
     return p[0]
 
 
-@pg.production('instruction : OPCODE LABEL')
+@pg.production('instruction : OPCODE nums')
 def jump(p):
     print(p)
     return p
+
+
+@pg.production('nums : data')
+@pg.production('nums : nums data')
+def nums(p):
+    if len(p) == 1:
+        return [p[0]]
+    return p[0] + [p[1]]
 
 
 @pg.production('instruction : OPCODE parameter')
